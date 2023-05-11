@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercises</title>
+</head>
+<body>
+  <div style="display:inline-block">Shopping Cart:</div>
+
+  <button onclick="addItem('apple')">Add apples</button>
+  <button onclick="addItem('tomato')">Add tomatoes</button>
+  <button onclick="addItem('egg')">Add eggs</button>
+  <button onclick="clearCart()">Clear</button>
+
+  <button onclick="changeText()" id="click-me-button">
+    click me
+  </button>
+
+  <button onclick="increaseCount()">
+    up
+  </button>
+
+  <div style = "display: inline-block;" id="counter">
+    0
+  </div>
+
+  <button onclick="decreaseCount()">
+    down
+  </button>
+  
+  <div id="shopping-cart"></div>
+
+
+  <input style="margin-top: 20px;" type="text" id="converter-box">
+
+  <button onclick="convertToCm()">Convert to centimetres</button>
+  <button onclick="convertToInches()">Convert to inches</button>
+
+  <div id="result"></div>
+
+  <div id="receipt"></div>
+
+  
+
+  <script>
+
+    function changeText()
+    {
+      let button = document.getElementById('click-me-button');
+      button.innerText = 'done';
+    }
+
+    let count = 0;
+
+    function increaseCount()
+    {
+      let counter = document.getElementById('counter');
+      count++;
+      counter.innerText = count;
+    }
+
+    function decreaseCount()
+    {
+      let counter = document.getElementById('counter');
+      count--;
+      counter.innerText = count;
+    }
+
+    function addDiv()
+    {
+      let text = document.getElementById('todo-title').value;
+      let newDiv = document.createElement('div')
+      newDiv.innerText =  text;
+      document.body.appendChild(newDiv);
+    }
+
+    function addItem(item)
+    {
+      let cart = document.getElementById('shopping-cart');
+      let newDiv = document.createElement('div');
+      newDiv.innerText = '1 ' + item;
+      cart.appendChild(newDiv);
+    }
+
+    function clearCart()
+    {
+      document.getElementById('shopping-cart').innerHTML = '';
+    }
+
+    function convertToCm()
+    {
+      let inches = document.getElementById('converter-box').value;
+      let cms = inches*2.54;
+      document.getElementById('result').innerText = cms + ' cm';
+    }
+
+    function convertToInches()
+    {
+      let cms = document.getElementById('converter-box').value;
+      let inches = cms/2.54;
+      document.getElementById('result').innerText = inches + ' in';
+    }
+
+    let cart = 
+    [
+      {
+        name: 'Apple',
+        price: 4,
+        quantity: 2, 
+      },
+      {
+        name: 'Orange',
+        price: 3,
+        quantity: 3,
+      }
+    ];
+
+    cartTotal(cart);
+    displayReceipt(cart);
+
+    function cartTotal(cartArray)
+    {
+      let total = 0;
+
+      cartArray.forEach
+      ( 
+        function(item)
+        {
+          total += item.price * item.quantity;
+        }
+      );
+
+      console.log(total);
+    }
+
+    function displayReceipt(cart)
+    {
+      let receipt = document.getElementById('receipt');
+      receipt.innerHTML = '';
+
+      let total = 0;
+
+      cart.forEach
+      (
+        function(item)
+        {
+          let itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          let newDiv = document.createElement('div');
+          newDiv.innerText = item.name + ' $' + item.price + ' * ' + item.quantity + ' = $' + itemTotal;
+          receipt.appendChild(newDiv);
+        }
+      )
+
+      let totalDiv = document.createElement('div');
+      totalDiv.innerText = 'Cart total = $' + total;
+      receipt.appendChild(totalDiv); 
+
+    }
+
+
+
+
+  </script>
+</body>
+</html>
